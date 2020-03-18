@@ -1,21 +1,7 @@
 - hosts: localhost
   tasks:
-  - name: remote copy group status
-    hpe3par_remote_copy:
-      storage_system_ip: "{{ storage_system_ip }}"
-      storage_system_password: "{{ storage_system_password }}"
-      storage_system_username: "{{ storage_system_username }}"
-      state: remote_copy_status
-      remote_copy_group_name: "{{ rcopy_group_name }}"
-    register: result
-
-  - name: Stop remote copy group 
-    hpe3par_remote_copy:
-      storage_system_ip: "{{ storage_system_ip }}"
-      storage_system_password: "{{ storage_system_password }}"
-      storage_system_username: "{{ storage_system_username }}"
-      state: stop
-      remote_copy_group_name: "{{ rcopy_group_name }}"
+  - name: Load Storage System Vars
+    include_vars: vars
 
   - name: remote copy group status
     hpe3par_remote_copy:
@@ -34,17 +20,8 @@
       state: remove_volume
       remote_copy_group_name: "{{ rcopy_group_name }}"
       volume_name: "{{ volume_name }}"
+      keep_snap: False
       remove_secondary_volume: True
-        
-
-  - name: Remove Remote Copy Group "{{ rcopy_group_name }}"
-    hpe3par_remote_copy:
-      storage_system_ip: "{{ storage_system_ip }}"
-      storage_system_password: "{{ storage_system_password }}"
-      storage_system_username: "{{ storage_system_username }}"
-      state: absent
-      remote_copy_group_name: "{{ rcopy_group_name }}"
-      remove_secondary_volume: "true"
 
   - name: Delete Volume "{{ volume_name }}"
     hpe3par_volume:
@@ -53,3 +30,4 @@
        storage_system_password: "{{ storage_system_password }}"
        state: absent
        volume_name: "{{ volume_name }}"
+
