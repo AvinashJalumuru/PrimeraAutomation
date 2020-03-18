@@ -1,7 +1,5 @@
 - hosts: localhost
   tasks:
-  - name: Load Storage System Vars
-    include_vars: vars
 
   - name: remote copy group status
     hpe3par_remote_copy:
