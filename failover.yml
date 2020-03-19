@@ -1,0 +1,7 @@
+- hosts: Failover_Array
+  gather_facts: false
+  tasks:
+
+  - name: Failover Rcopygroup
+    raw:  setrcopygroup failover -f "{{rcopy_group_name}}"
+    register: result

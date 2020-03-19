@@ -1,0 +1,27 @@
+- hosts: localhost
+  tasks:
+  - name: remote copy group status
+    hpe3par_remote_copy:
+      storage_system_ip: "{{ storage_system_ip }}"
+      storage_system_password: "{{ storage_system_password }}"
+      storage_system_username: "{{ storage_system_username }}"
+      state: remote_copy_status
+      remote_copy_group_name: "{{ rcopy_group_name }}"
+    register: result
+
+  - name: Start remote copy group 
+    hpe3par_remote_copy:
+      storage_system_ip: "{{ storage_system_ip }}"
+      storage_system_password: "{{ storage_system_password }}"
+      storage_system_username: "{{ storage_system_username }}"
+      state: start
+      remote_copy_group_name: "{{ rcopy_group_name }}"
+
+  - name: remote copy group status
+    hpe3par_remote_copy:
+      storage_system_ip: "{{ storage_system_ip }}"
+      storage_system_password: "{{ storage_system_password }}"
+      storage_system_username: "{{ storage_system_username }}"
+      state: remote_copy_status
+      remote_copy_group_name: "{{ rcopy_group_name }}"
+    register: result
